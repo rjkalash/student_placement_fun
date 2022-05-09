@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Form for data</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="result.js"></script>
+   
 </head>
 <body style="font-family: 'Courier New', Courier, monospace; text-align: center; font-weight: 500; font: 600; background-color: aqua; color:black;">
     <p style="font-size: large; background-color: yellow;"> 
@@ -60,6 +60,31 @@
     <p style=" color: red">
         *Note Placement: 0 means not placed and Placement: 1 means Successfully Placed
     </p>
+    function predict() {
+            
+    console.log("Submit Button Clicked");
+    var cgpa = frm.cgpa.value;
     
+    var iq = frm.iq.value;
+    var ps = frm.ps.value;
+    var result = document.getElementById("result");
+    //var url="http://127.0.0.1:5000/predict"
+
+     var url = "https://student-placement-predictions.herokuapp.com/predict";
+    
+    $.post(url, {
+        'cgpa': cgpa,
+        'iq': iq,
+        'ps': ps,
+    },
+    function(data, status) {
+        console.log(data['placement']);
+        result.innerHTML ="Placement :" +data['placement'] ;
+        console.log(status);
+    }
+    );
+   
+  
+}
 </body>
 </html>
